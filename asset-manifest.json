@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/loan-calculator/static/css/main.0a8f0ae2.css",
-    "main.js": "/loan-calculator/static/js/main.b91387da.js",
-    "index.html": "/loan-calculator/index.html",
-    "main.0a8f0ae2.css.map": "/loan-calculator/static/css/main.0a8f0ae2.css.map",
-    "main.b91387da.js.map": "/loan-calculator/static/js/main.b91387da.js.map"
+    "main.css": "/loan-app/static/css/main.0a8f0ae2.css",
+    "main.js": "/loan-app/static/js/main.b91387da.js",
+    "index.html": "/loan-app/index.html",
+    "main.0a8f0ae2.css.map": "/loan-app/static/css/main.0a8f0ae2.css.map",
+    "main.b91387da.js.map": "/loan-app/static/js/main.b91387da.js.map"
   },
   "entrypoints": [
     "static/css/main.0a8f0ae2.css",
