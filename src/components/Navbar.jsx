@@ -9,23 +9,14 @@ const Navbar = ({ setCurrentPage }) => {
       <div className="container navbar-content">
         <div className="logo">Loan Calculator</div>
         <div className="nav-links">
-          <a
-            href="#calculator"
-            onClick={(e) => {
-              e.preventDefault();
-              setCurrentPage("calculator");
-            }}
-          >
+          <a href="#" onClick={() => setCurrentPage("calculator")}>
             Calculator
           </a>
-          <a
-            href="#about"
-            onClick={(e) => {
-              e.preventDefault();
-              setCurrentPage("about");
-            }}
-          >
+          <a href="#" onClick={() => setCurrentPage("about")}>
             About
+          </a>
+          <a href="#" onClick={() => setCurrentPage("error")}>
+            Error Page
           </a>
           <button className="theme-toggle" onClick={toggleTheme}>
             {darkMode ? "☀️ Light" : "🌙 Dark"}
