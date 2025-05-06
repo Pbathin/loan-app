@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Navbar from "./components/Navbar";
+import Calculator from "./components/Calculator";
+import About from "./components/About";
+import Footer from "./components/Footer";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 function App() {
+  const [currentPage, setCurrentPage] = useState("calculator");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider>
+      <div className="app">
+        <Navbar setCurrentPage={setCurrentPage} />
+        <div className="container">
+          {currentPage === "calculator" ? <Calculator /> : <About />}
+        </div>
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
 }
 
