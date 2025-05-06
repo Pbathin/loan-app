@@ -1,5 +1,6 @@
 import React from "react";
 import { useTheme } from "../contexts/ThemeContext";
+import ThemeToggle from "./ThemeToggle"; // Import the switch component
 
 const Navbar = ({ setCurrentPage }) => {
   const { darkMode, toggleTheme } = useTheme();
@@ -18,9 +19,9 @@ const Navbar = ({ setCurrentPage }) => {
           <a href="#" onClick={() => setCurrentPage("error")}>
             Error Page
           </a>
-          <button className="theme-toggle" onClick={toggleTheme}>
-            {darkMode ? "☀️ Light" : "🌙 Dark"}
-          </button>
+
+          {/* Replace emoji button with switch toggle */}
+          <ThemeToggle isDark={darkMode} toggleTheme={toggleTheme} />
         </div>
       </div>
     </nav>

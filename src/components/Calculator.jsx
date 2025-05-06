@@ -138,23 +138,18 @@ const Calculator = () => {
 
   return (
     <section className="calculator-section">
-      <h1>Calculate Your Loan</h1>
+      <h1>Loan Calculator Dashboard</h1>
       <div className="calculator-form">
-        <div className="form-group">
-          <label htmlFor="currency">Currency</label>
+        <div className="form-group ">
+          <label htmlFor="paymentFrequency">Payment Frequency</label>
           <select
-            id="currency"
-            value={currency}
-            onChange={handleCurrencyChange}
-            className="currency-select"
+            id="paymentFrequency"
+            value={loanData.paymentFrequency}
+            onChange={handleInputChange}
           >
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            <option value="INR">INR</option>
-            <option value="GBP">GBP</option>
-            <option value="JPY">JPY</option>
-            <option value="AUD">AUD</option>
-            <option value="CAD">CAD</option>
+            <option value="12">Monthly</option>
+            <option value="26">Bi-weekly</option>
+            <option value="52">Weekly</option>
           </select>
         </div>
 
@@ -195,18 +190,23 @@ const Calculator = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="paymentFrequency">Payment Frequency</label>
+          <label htmlFor="currency">Currency</label>
           <select
-            id="paymentFrequency"
-            value={loanData.paymentFrequency}
-            onChange={handleInputChange}
+            id="currency"
+            value={currency}
+            onChange={handleCurrencyChange}
+            className="currency-select"
           >
-            <option value="12">Monthly</option>
-            <option value="26">Bi-weekly</option>
-            <option value="52">Weekly</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="INR">INR</option>
+            <option value="GBP">GBP</option>
+            <option value="JPY">JPY</option>
+            <option value="AUD">AUD</option>
+            <option value="CAD">CAD</option>
           </select>
         </div>
-        <div className="form-group button-group">
+        <div className="button-group">
           <button
             type="button"
             onClick={calculateLoan}
