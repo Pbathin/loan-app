@@ -1,6 +1,27 @@
 import React, { useState } from "react";
 import Results from "./Results";
 
+const CURRENCY_SYMBOLS = {
+  USD: "$",
+  EUR: "€",
+  INR: "₹",
+  GBP: "£",
+  JPY: "¥",
+  AUD: "A$",
+  CAD: "C$",
+};
+
+// Exchange rates (approximate, would use an API in production)
+const EXCHANGE_RATES = {
+  USD: 1,
+  EUR: 0.93,
+  INR: 83.12,
+  GBP: 0.79,
+  JPY: 155.67,
+  AUD: 1.52,
+  CAD: 1.38,
+};
+
 const Calculator = () => {
   const [loanData, setLoanData] = useState({
     loanAmount: 200000,
@@ -9,6 +30,7 @@ const Calculator = () => {
     paymentFrequency: 12,
   });
 
+  const [currency, setCurrency] = useState("USD");
   const [results, setResults] = useState(null);
   const [showResults, setShowResults] = useState(false);
 
@@ -18,6 +40,27 @@ const Calculator = () => {
       ...prev,
       [id]: parseFloat(value),
     }));
+  };
+
+  const handleCurrencyChange = (e) => {
+    const newCurrency = e.target.value;
+    setCurrency(newCurrency);
+
+    // If results are showing, recalculate with the new currency
+    if (showResults) {
+      calculateLoan();
+    }
+  };
+
+  const resetCalculator = () => {
+    setLoanData({
+      loanAmount: 200000,
+      interestRate: 5,
+      loanTerm: 30,
+      paymentFrequency: 12,
+    });
+    setResults(null);
+    setShowResults(false);
   };
 
   const calculateLoan = () => {
@@ -98,11 +141,31 @@ const Calculator = () => {
       <h1>Calculate Your Loan</h1>
       <div className="calculator-form">
         <div className="form-group">
-          <label htmlFor="loanAmount">Loan Amount ($)</label>
+          <label htmlFor="currency">Currency</label>
+          <select
+            id="currency"
+            value={currency}
+            onChange={handleCurrencyChange}
+            className="currency-select"
+          >
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="INR">INR</option>
+            <option value="GBP">GBP</option>
+            <option value="JPY">JPY</option>
+            <option value="AUD">AUD</option>
+            <option value="CAD">CAD</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="loanAmount">
+            Loan Amount ({CURRENCY_SYMBOLS[currency]})
+          </label>
           <input
             type="number"
             id="loanAmount"
-            placeholder="e.g. 300000"
+            placeholder={`e.g. 300000`}
             min="1"
             value={loanData.loanAmount}
             onChange={handleInputChange}
@@ -143,9 +206,16 @@ const Calculator = () => {
             <option value="52">Weekly</option>
           </select>
         </div>
-        <div className="form-group full-width">
-          <button type="button" onClick={calculateLoan}>
+        <div className="form-group button-group">
+          <button
+            type="button"
+            onClick={calculateLoan}
+            className="calculate-btn"
+          >
             Calculate
+          </button>
+          <button type="button" onClick={resetCalculator} className="reset-btn">
+            Reset
           </button>
         </div>
       </div>
@@ -154,6 +224,8 @@ const Calculator = () => {
         <Results
           results={results}
           totalPayments={loanData.loanTerm * loanData.paymentFrequency}
+          currency={currency}
+          exchangeRate={EXCHANGE_RATES[currency]}
         />
       )}
     </section>

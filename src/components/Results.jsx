@@ -1,12 +1,29 @@
 import React from "react";
 
-const Results = ({ results, totalPayments }) => {
+const CURRENCY_SYMBOLS = {
+  USD: "$",
+  EUR: "€",
+  INR: "₹",
+  GBP: "£",
+  JPY: "¥",
+  AUD: "A$",
+  CAD: "C$",
+};
+
+const Results = ({ results, totalPayments, currency, exchangeRate }) => {
   const formatCurrency = (amount) => {
+    // Convert the amount to the selected currency
+    const convertedAmount = amount * exchangeRate;
+
+    // Format based on currency (JPY doesn't use decimal places)
+    const decimalPlaces = currency === "JPY" ? 0 : 2;
+
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 2,
-    }).format(amount);
+      currency: currency,
+      minimumFractionDigits: decimalPlaces,
+      maximumFractionDigits: decimalPlaces,
+    }).format(convertedAmount);
   };
 
   return (

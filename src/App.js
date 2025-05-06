@@ -1,4 +1,3 @@
-// src/App.jsx - Main Application Component
 import React, { useState } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";

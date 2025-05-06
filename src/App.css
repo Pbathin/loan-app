@@ -1,3 +1,4 @@
+/* App.css */
 * {
   margin: 0;
   padding: 0;
@@ -21,7 +22,7 @@
 }
 
 .dark-mode {
-  --primary-color: #6478fb;
+  --primary-color: #5c6bc0; /* slightly lighter for better contrast */
   --primary-light: #9fa8da;
   --primary-dark: #3949ab;
   --text-color: #f0f0f0;
@@ -43,7 +44,7 @@ body {
 .app {
   display: flex;
   flex-direction: column;
-  min-height: 70vh;
+  min-height: 100vh;
 }
 
 .container {
@@ -58,7 +59,7 @@ body {
 .navbar {
   background-color: var(--primary-color);
   color: var(--navbar-text);
-  padding: 0.02rem 0;
+  padding: 0.05rem 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -144,9 +145,22 @@ select {
   color: var(--text-color);
 }
 
+.currency-select {
+  background-color: var(--card-background);
+  color: var(--text-color);
+  font-weight: bold;
+}
+
 .full-width {
   grid-column: 1 / -1;
   text-align: center;
+}
+
+.button-group {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
 button {
@@ -162,6 +176,18 @@ button {
 
 button:hover {
   background-color: var(--primary-dark);
+}
+
+.reset-btn {
+  background-color: #e53935;
+}
+
+.reset-btn:hover {
+  background-color: #c62828;
+}
+
+.home-button {
+  margin-top: 20px;
 }
 
 /* Results */
@@ -245,6 +271,40 @@ button:hover {
   margin-bottom: 20px;
 }
 
+/* Error Page */
+.error-section {
+  padding: 50px 0;
+  text-align: center;
+}
+
+.error-content {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.error-content h2 {
+  color: #e53935;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.error-message {
+  margin: 30px 0;
+  padding: 20px;
+  background-color: var(--results-bg);
+  border-radius: 8px;
+  border-left: 5px solid #e53935;
+}
+
+.error-message p {
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
 /* Footer */
 .footer {
   background-color: var(--primary-color);
@@ -252,51 +312,6 @@ button:hover {
   text-align: center;
   padding: 20px 0;
   margin-top: 30px;
-}
-
-/* Error Page */
-.error-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 400px;
-  padding: 50px 0;
-}
-
-.error-content {
-  background-color: var(--card-background);
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 40px;
-  text-align: center;
-  max-width: 500px;
-  width: 100%;
-}
-
-.error-icon {
-  font-size: 50px;
-  margin-bottom: 20px;
-}
-
-.error-message {
-  margin: 20px 0 30px;
-  font-size: 18px;
-  color: var(--text-color);
-}
-
-.go-home-btn {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
-}
-
-.go-home-btn:hover {
-  background-color: var(--primary-dark);
 }
 
 /* Media Queries */
