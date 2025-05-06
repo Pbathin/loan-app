@@ -155,7 +155,8 @@ const Calculator = () => {
 
         <div className="form-group">
           <label htmlFor="loanAmount">
-            Loan Amount ({CURRENCY_SYMBOLS[currency]})
+            Loan Amount
+            {/* ({CURRENCY_SYMBOLS[currency]}) */}
           </label>
           <input
             type="number"
