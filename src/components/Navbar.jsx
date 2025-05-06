@@ -19,6 +19,9 @@ const Navbar = ({ setCurrentPage }) => {
           <a href="#" onClick={() => setCurrentPage("error")}>
             Error Page
           </a>
+          <a href="#" onClick={() => setCurrentPage("exchangeRates")}>
+            Exchange Rates
+          </a>
 
           {/* Replace emoji button with switch toggle */}
           <ThemeToggle isDark={darkMode} toggleTheme={toggleTheme} />

@@ -207,15 +207,15 @@ const Calculator = () => {
           </select>
         </div>
         <div className="button-group">
+          <button type="button" onClick={resetCalculator} className="reset-btn">
+            Reset
+          </button>
           <button
             type="button"
             onClick={calculateLoan}
             className="calculate-btn"
           >
             Calculate
-          </button>
-          <button type="button" onClick={resetCalculator} className="reset-btn">
-            Reset
           </button>
         </div>
       </div>
