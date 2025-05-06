@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/loan-app/static/css/main.0a8f0ae2.css",
-    "main.js": "/loan-app/static/js/main.3f2bfd63.js",
+    "main.css": "/loan-app/static/css/main.497d1322.css",
+    "main.js": "/loan-app/static/js/main.b7327e79.js",
     "index.html": "/loan-app/index.html",
-    "main.0a8f0ae2.css.map": "/loan-app/static/css/main.0a8f0ae2.css.map",
-    "main.3f2bfd63.js.map": "/loan-app/static/js/main.3f2bfd63.js.map"
+    "main.497d1322.css.map": "/loan-app/static/css/main.497d1322.css.map",
+    "main.b7327e79.js.map": "/loan-app/static/js/main.b7327e79.js.map"
   },
   "entrypoints": [
-    "static/css/main.0a8f0ae2.css",
-    "static/js/main.3f2bfd63.js"
+    "static/css/main.497d1322.css",
+    "static/js/main.b7327e79.js"
   ]
 }
