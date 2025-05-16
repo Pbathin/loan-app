@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Results from "./Results";
+import useExchangeRates from "../hooks/useExchangeRates";
 
 const CURRENCY_SYMBOLS = {
   USD: "$",
@@ -11,28 +12,29 @@ const CURRENCY_SYMBOLS = {
   CAD: "C$",
 };
 
-// Exchange rates (approximate, would use an API in production)
-const EXCHANGE_RATES = {
-  USD: 1,
-  EUR: 0.93,
-  INR: 83.12,
-  GBP: 0.79,
-  JPY: 155.67,
-  AUD: 1.52,
-  CAD: 1.38,
+// Default amounts for different currencies
+const DEFAULT_AMOUNTS = {
+  USD: 200000,
+  EUR: 180000,
+  INR: 15000000,
+  GBP: 160000,
+  JPY: 25000000,
+  AUD: 300000,
+  CAD: 270000,
 };
 
 const Calculator = () => {
+  const [currency, setCurrency] = useState("USD");
   const [loanData, setLoanData] = useState({
-    loanAmount: 200000,
+    loanAmount: DEFAULT_AMOUNTS[currency],
     interestRate: 5,
     loanTerm: 30,
     paymentFrequency: 12,
   });
 
-  const [currency, setCurrency] = useState("USD");
   const [results, setResults] = useState(null);
   const [showResults, setShowResults] = useState(false);
+  const { rates, loading, error } = useExchangeRates(currency);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -46,6 +48,12 @@ const Calculator = () => {
     const newCurrency = e.target.value;
     setCurrency(newCurrency);
 
+    // Update loan amount to default value for new currency
+    setLoanData((prev) => ({
+      ...prev,
+      loanAmount: DEFAULT_AMOUNTS[newCurrency],
+    }));
+
     // If results are showing, recalculate with the new currency
     if (showResults) {
       calculateLoan();
@@ -54,7 +62,7 @@ const Calculator = () => {
 
   const resetCalculator = () => {
     setLoanData({
-      loanAmount: 200000,
+      loanAmount: DEFAULT_AMOUNTS[currency],
       interestRate: 5,
       loanTerm: 30,
       paymentFrequency: 12,
@@ -139,30 +147,40 @@ const Calculator = () => {
   return (
     <section className="calculator-section">
       <h1>Loan Calculator Dashboard</h1>
+      {loading && (
+        <div className="loading-message">Loading exchange rates...</div>
+      )}
+      {/* Display error message if there is an error */}
+      {/* {error && <div className="error-message">Error: {error}</div>}*/}
       <div className="calculator-form">
-        <div className="form-group ">
-          <label htmlFor="paymentFrequency">Payment Frequency</label>
+        <div className="form-group">
+          <label htmlFor="currency">Currency</label>
           <select
-            id="paymentFrequency"
-            value={loanData.paymentFrequency}
-            onChange={handleInputChange}
+            id="currency"
+            value={currency}
+            onChange={handleCurrencyChange}
+            className="currency-select"
           >
-            <option value="12">Monthly</option>
-            <option value="26">Bi-weekly</option>
-            <option value="52">Weekly</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="INR">INR</option>
+            <option value="GBP">GBP</option>
+            <option value="JPY">JPY</option>
+            <option value="AUD">AUD</option>
+            <option value="CAD">CAD</option>
           </select>
         </div>
 
         <div className="form-group">
           <label htmlFor="loanAmount">
-            Loan Amount
-            {/* ({CURRENCY_SYMBOLS[currency]}) */}
+            Loan Amount ({CURRENCY_SYMBOLS[currency]})
           </label>
           <input
             type="number"
             id="loanAmount"
-            placeholder={`e.g. 300000`}
-            min="1"
+            placeholder={`e.g. ${DEFAULT_AMOUNTS[currency].toLocaleString()}`}
+            min={currency === "JPY" ? "100" : "1"}
+            step={currency === "JPY" ? "1000" : "0.01"}
             value={loanData.loanAmount}
             onChange={handleInputChange}
           />
@@ -190,21 +208,16 @@ const Calculator = () => {
             onChange={handleInputChange}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="currency">Currency</label>
+        <div className="form-group ">
+          <label htmlFor="paymentFrequency">Payment Frequency</label>
           <select
-            id="currency"
-            value={currency}
-            onChange={handleCurrencyChange}
-            className="currency-select"
+            id="paymentFrequency"
+            value={loanData.paymentFrequency}
+            onChange={handleInputChange}
           >
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            <option value="INR">INR</option>
-            <option value="GBP">GBP</option>
-            <option value="JPY">JPY</option>
-            <option value="AUD">AUD</option>
-            <option value="CAD">CAD</option>
+            <option value="12">Monthly</option>
+            <option value="26">Bi-weekly</option>
+            <option value="52">Weekly</option>
           </select>
         </div>
         <div className="button-group">
@@ -220,13 +233,12 @@ const Calculator = () => {
           </button>
         </div>
       </div>
-
       {showResults && results && (
         <Results
           results={results}
           totalPayments={loanData.loanTerm * loanData.paymentFrequency}
           currency={currency}
-          exchangeRate={EXCHANGE_RATES[currency]}
+          exchangeRate={1} // Set to 1 since we're using native currency values
         />
       )}
     </section>

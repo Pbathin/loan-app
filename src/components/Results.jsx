@@ -10,20 +10,14 @@ const CURRENCY_SYMBOLS = {
   CAD: "C$",
 };
 
-const Results = ({ results, totalPayments, currency, exchangeRate }) => {
+const Results = ({ results, totalPayments, currency }) => {
   const formatCurrency = (amount) => {
-    // Convert the amount to the selected currency
-    const convertedAmount = amount * exchangeRate;
-
-    // Format based on currency (JPY doesn't use decimal places)
-    const decimalPlaces = currency === "JPY" ? 0 : 2;
-
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat(undefined, {
       style: "currency",
       currency: currency,
-      minimumFractionDigits: decimalPlaces,
-      maximumFractionDigits: decimalPlaces,
-    }).format(convertedAmount);
+      maximumFractionDigits: currency === "JPY" ? 0 : 2,
+      minimumFractionDigits: currency === "JPY" ? 0 : 2,
+    }).format(amount);
   };
 
   return (
@@ -40,6 +34,10 @@ const Results = ({ results, totalPayments, currency, exchangeRate }) => {
       <div className="result-item">
         <span className="result-label">Total Interest:</span>
         <span>{formatCurrency(results.totalInterest)}</span>
+      </div>
+      <div className="result-item">
+        <span className="result-label">Number of Payments:</span>
+        <span>{totalPayments}</span>
       </div>
 
       <h3 className="result-header">Amortization Schedule</h3>
